@@ -25,26 +25,32 @@ def FrameSIM():
     J4 = Tk()
     frame4 = Frame(J4, height = 200, width = 200)
     #Insert Simplify page under here
-    enterA = Entry(frame4)
-    Aget=enterA.get()
+    enterA = Entry(frame4) #Input boxes make look pretier  
     enterA.grid(row=1, column=1)
-    enterB = Entry(frame4)
-    Bget=enterB.get()
+    enterB = Entry(frame4) #Input boxes make look pretier 
     enterB.grid(row=1, column=2)
-    enterC = Entry(frame4)
-    Cget=enterC.get()
+    enterC = Entry(frame4) #Input boxes make look pretier 
     enterC.grid(row=1, column=3)
-    #################################################################################################### WIP
-    #global A
-    #A = enterA.get()
-    #global B
-   #B = enterB.get()
-    #global C
-   # C = enterC.get()
-    def Factor(a,b,c):
-        Flaggy = True
-        while Flaggy == True:
-            
+
+    def length(i):   #Quick define Length
+      return len(str(i))
+    def FacButton():
+        a = enterA.get() #Gets values from input box
+        b = enterB.get()
+        c = enterC.get()
+        if length(a) == 3 or length(b) == 3 or length(c) == 3 or length(a) == 0 or length(b) == 0 or length(c) == 0: #Error if number greater than 2 digits
+            tkMessageBox.showinfo(title="Error", message="please enter numbers from -99 to 99!") #popup error output
+        elif a.isalpha() or b.isalpha() or c.isalpha(): #Error if Letters
+            tkMessageBox.showinfo(title="Error", message="please enter numbers not letters!") #popup error output     
+        elif (int(b)**2)-(4*int(a)*int(c)) < 0: #Error if sqr > 0
+            tkMessageBox.showinfo(title="Error", message="As the squareroot lesss than 0 it wont produce real results") #popup error output 
+        else:
+            A = int(a) #Set values to integers 
+            B = int(b)
+            C = int(c)
+            result = Factorer(A,B,C) #Output to Ashelys factoriser 
+    def Factorer(a,b,c):
+        while True:
             random_a1=random.randint(-10,10)
             random_a2=random.randint(-10,10)
             random_c1=random.randint(-10,10)
@@ -53,21 +59,11 @@ def FrameSIM():
                 pass
             elif (random_a1*random_c2) + (random_a2*random_c1) == b and random_a1/random_c1 != random_a2/random_c2 and random_a1*random_a2==a and random_c1*random_c2==c:
                 break
-                Flaggy = False
-        print "y=(%dx+(%d))(%dx+(%d))" % (random_a1,random_c1,random_a2,random_c2)
-        top = Toplevel()
-        top.title("Answer")
-        msg = Message(top, text = "y=(%dx+(%d))(%dx+(%d))" % (random_a1,random_c1,random_a2,random_c2))
-        msg.pack(side=TOP)
+        tkMessageBox.showinfo(title="Answer", message="y=(%dx+(%d))(%dx+(%d))" % (random_a1,random_c1,random_a2,random_c2)) #Output to textbox
+        print "y=(%dx+(%d))(%dx+(%d))" % (random_a1,random_c1,random_a2,random_c2) 
 
-    
-
-    Factorer = lambda x = Aget, y = Bget, z = Cget: Factor(x,y,z)
-    ###################################################################################################  WIP    
-    buttonSim1 = Tkinter.Button(frame4, text="Convert", command=Factorer)
+    buttonSim1 = Button(frame4, text="Convert", command=FacButton) #Button to activate factoriser
     buttonSim1.grid(row=2, column=3)
-    output = Entry(frame4)
-    output.grid(row=3, column=3)
 
 
   
