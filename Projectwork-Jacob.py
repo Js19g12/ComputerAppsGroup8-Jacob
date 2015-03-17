@@ -2,8 +2,7 @@ from Tkinter import *
 from PIL import Image, ImageTk
 import random
 import Tkinter
-import tkMessageBox
-v = "" 
+import tkMessageBox 
 def close():
     root.destroy()  # def close window
 def close_pop():
@@ -72,8 +71,57 @@ def Frame3():
     J3 = Tk()
     frame3 = Frame(J3, height = 600, width = 1000)
     #Insert Graph page under here
+    canvas = Tkinter.Canvas(frame3, width=500, height=400, bg="White")
+    canvas.grid(row=1,column=1, padx=10, pady=10)
+    ##Input for graph
+    GenterA = Entry(frame3)
+    GenterA.insert(0, "Insert A here")#Input boxes make look pretier  
+    GenterA.grid(row=1, column=5)
+    GenterB = Entry(frame3) #Input boxes make look pretier
+    GenterB.insert(0, "Insert B here")
+    GenterB.grid(row=1, column=6)
+    GenterC = Entry(frame3) #Input boxes make look pretier
+    GenterC.insert(0, "Insert C here")
+    GenterC.grid(row=1, column=7)
+    #Graph Function
+    def length(i):   #Quick define Length
+      return len(str(i))
+    def GraphButton():
+        a = GenterA.get() #Gets values from input box
+        b = GenterB.get()
+        c = GenterC.get()
+        if length(a) == 3 or length(b) == 3 or length(c) == 3 or length(a) == 0 or length(b) == 0 or length(c) == 0: #Error if number greater than 2 digits
+            tkMessageBox.showinfo(title="Error", message="please enter numbers from -99 to 99!") #popup error output
+        elif a.isalpha() or b.isalpha() or c.isalpha(): #Error if Letters
+            tkMessageBox.showinfo(title="Error", message="please enter numbers not letters!") #popup error output     
+        elif (int(b)**2)-(4*int(a)*int(c)) < 0: #Error if sqr > 0
+            tkMessageBox.showinfo(title="Error", message="As the squareroot lesss than 0 it wont produce real results") #popup error output 
+        else:
+            A = int(a) #Set values to integers 
+            B = int(b)
+            C = int(c)
+            result = draw_g(A,B,C) #Output to Ashelys factoriser
+    
+    ##Graph Function
+    def draw_g(A,B,C):
+        prevX = -100
+        prevY = -100
+        for x in range(-100, 100):
+            y = ((A*(x**2)) + (B*x) + C) # The equation
+            y = -y + 200
+            x = x +250
+            canvas.create_oval(x-2,y-2,x+2,y+2)
+            canvas.create_line(prevX, prevY, x, y )
+            prevX = x
+            prevY = y
+    ######
+    #Button for graph
+    buttonSim = Tkinter.Button(frame3, text="Graph quadratic", command=GraphButton)
+    buttonSim.grid(row=2, column=7, padx=10, pady=10)
+    #Button for convertor
     buttonSim = Tkinter.Button(frame3, text="Equation Convertor", command=FrameSIM)
-    buttonSim.grid(row=2, column=6, padx=10, pady=10)
+    buttonSim.grid(row=3, column=7, padx=10, pady=10)
+    #######
     frame3.pack() #Leave at end or breaks
 
 
